@@ -142,7 +142,7 @@ export function NamePlate({ name, filterValue }) {
           )}
         </span>
 
-        {name.substring(filterValue.length)}
+        {name.substring(matchesFilterAtIndex + filterValue.length)}
       </div>
     );
   } else {
