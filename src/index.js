@@ -1,12 +1,11 @@
-import { NamePlates, names } from "./utils";
+import { NamePlates, names, sendAnalyticsPing } from "./utils";
 import React from "react";
 import ReactDOM from "react-dom";
 
 import {
   unstable_runWithPriority,
   unstable_scheduleCallback,
-  unstable_ImmediatePriority,
-  unstable_NormalPriority
+  unstable_LowPriority
 } from "scheduler";
 
 import "./styles.css";
@@ -44,6 +43,7 @@ class FilterBox extends React.Component {
 
     this.setState({ inputValue: value });
     this.props.onChange(value);
+    sendAnalyticsPing(value);
   };
 
   render() {
@@ -84,6 +84,19 @@ const root = ReactDOM.render(<App />, rootElement);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 
 
@@ -100,15 +113,15 @@ const root = ReactDOM.render(<App />, rootElement);
 
 
 
-unstable_runWithPriority(unstable_ImmediatePriority, () => {
-  unstable_scheduleCallback(() => {
-    this.setState({ inputValue: value });
-  });
+this.setState({ inputValue: value });
+
+unstable_scheduleCallback(() => {
+  this.props.onChange(value);
 });
 
-unstable_runWithPriority(unstable_NormalPriority, () => {
+unstable_runWithPriority(unstable_LowPriority, () => {
   unstable_scheduleCallback(() => {
-    this.props.onChange(value);
+    sendAnalyticsPing(value);
   });
 });
 

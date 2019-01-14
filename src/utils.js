@@ -114,11 +114,7 @@ export function NamePlates({ names, filterValue }) {
   return (
     <div className="clearfix">
       {names.map(name => (
-        <NamePlate
-          name={name}
-          filterValue={filterValue}
-          key={name}
-        />
+        <NamePlate name={name} filterValue={filterValue} key={name} />
       ))}
     </div>
   );
@@ -150,7 +146,18 @@ export function NamePlate({ name, filterValue }) {
   }
 }
 
-export function sleep(ms) {
+export function sendAnalyticsPing(value) {
+  performance.mark("analytics-start");
+  sleep(50);
+  performance.mark("analytics-end");
+  performance.measure(
+    "Analytics: " + value,
+    "analytics-start",
+    "analytics-end"
+  );
+}
+
+function sleep(ms) {
   let now = Date.now();
   while (Date.now() < now + ms) {
     // noop
