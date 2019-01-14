@@ -42,8 +42,16 @@ class FilterBox extends React.Component {
     const value = event.target.value;
 
     this.setState({ inputValue: value });
-    this.props.onChange(value);
-    sendAnalyticsPing(value);
+
+    unstable_scheduleCallback(() => {
+      this.props.onChange(value);
+    });
+
+    unstable_runWithPriority(unstable_LowPriority, () => {
+      unstable_scheduleCallback(() => {
+        sendAnalyticsPing(value);
+      });
+    });
   };
 
   render() {
@@ -64,7 +72,12 @@ class FilterBox extends React.Component {
 }
 
 const rootElement = document.getElementById("root");
-const root = ReactDOM.render(<App />, rootElement);
+const root = ReactDOM.render(
+  <React.unstable_ConcurrentMode>
+    <App />
+  </React.unstable_ConcurrentMode>,
+  rootElement
+);
 
 
 
