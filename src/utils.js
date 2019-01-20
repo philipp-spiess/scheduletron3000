@@ -109,26 +109,26 @@ export const names = [
   "Todd Washington"
 ];
 
-export function NamePlates({ names, filterValue }) {
+export function NameList({ names, filterValue }) {
   return (
     <div className="clearfix">
       {names.map(name => (
-        <NamePlate name={name} filterValue={filterValue} key={name} />
+        <Name name={name} filterValue={filterValue} key={name} />
       ))}
     </div>
   );
 }
 
-export function NamePlate({ name, filterValue }) {
+export function Name({ name, filterValue }) {
   const matchesFilterAtIndex = name
     .toLowerCase()
     .indexOf(filterValue.toLowerCase());
 
-  miningBitcoin(3);
+  miningBitcoin(2);
 
-  if (matchesFilterAtIndex >= 0) {
+  if (matchesFilterAtIndex >= 0 && filterValue !== "") {
     return (
-      <div className="nameplate">
+      <div className="name">
         {name.substring(0, matchesFilterAtIndex)}
         <span className="highlight">
           {name.substring(
@@ -141,13 +141,13 @@ export function NamePlate({ name, filterValue }) {
       </div>
     );
   } else {
-    return <div className="nameplate">{name}</div>;
+    return <div className="name">{name}</div>;
   }
 }
 
 export function sendAnalyticsPing(value) {
   performance.mark("analytics-start");
-  miningBitcoin(50);
+  miningBitcoin(25);
   performance.mark("analytics-end");
   performance.measure(
     "Analytics: " + value,

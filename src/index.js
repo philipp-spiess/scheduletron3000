@@ -1,12 +1,12 @@
-import { NamePlates, names, sendAnalyticsPing } from "./utils";
+import { NameList, names, sendAnalyticsPing } from "./utils";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import {
-  unstable_runWithPriority,
-  unstable_scheduleCallback,
-  unstable_LowPriority
-} from "scheduler";
+// import {
+//   unstable_runWithPriority,
+//   unstable_scheduleCallback,
+//   unstable_LowPriority
+// } from "scheduler";
 
 import "./styles.css";
 
@@ -27,7 +27,7 @@ class App extends React.Component {
         <h1>ScheduleTron 3000</h1>
 
         <FilterBox onChange={this.handleChange} />
-        <NamePlates names={names} filterValue={filterValue} />
+        <NameList names={names} filterValue={filterValue} />
       </div>
     );
   }
@@ -56,7 +56,7 @@ class FilterBox extends React.Component {
           className="input"
           value={inputValue}
           onChange={this.handleChange}
-          placeholder="Filter"
+          placeholder="Filter 🔍"
         />
       </div>
     );
@@ -64,8 +64,7 @@ class FilterBox extends React.Component {
 }
 
 const rootElement = document.getElementById("root");
-const root = ReactDOM.render(<App />, rootElement);
-
+ReactDOM.render(<App />, rootElement);
 
 
 

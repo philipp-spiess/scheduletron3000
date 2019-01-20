@@ -16,16 +16,16 @@ body {
   width: 80%;
   display: block;
   outline-color: #fcd93b;
-  margin: 30px auto;
+  margin: 60px auto;
 }
 
 h1 {
   color: #fcd93b;
-  font-size: 60px;
+  font-size: 87px;
   margin: 60px;
 }
 
-.nameplate {
+.name {
   font-size: 30px;
   padding: 20px 0;
   width: 50%;
@@ -34,7 +34,9 @@ h1 {
 }
 
 .highlight {
-  color: #fcd93b;
+  color: #000000;
+  background: #ffadb4;
+  padding: 5px;
 }
 
 .clearfix::after {
