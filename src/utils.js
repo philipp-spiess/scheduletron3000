@@ -106,8 +106,7 @@ export const names = [
   "Timothy Gray",
   "Timothy Harvey",
   "Todd Stewart",
-  "Todd Washington",
-  "Willie Pope"
+  "Todd Washington"
 ];
 
 export function NamePlates({ names, filterValue }) {
@@ -125,7 +124,7 @@ export function NamePlate({ name, filterValue }) {
     .toLowerCase()
     .indexOf(filterValue.toLowerCase());
 
-  sleep(3);
+  miningBitcoin(3);
 
   if (matchesFilterAtIndex >= 0) {
     return (
@@ -148,7 +147,7 @@ export function NamePlate({ name, filterValue }) {
 
 export function sendAnalyticsPing(value) {
   performance.mark("analytics-start");
-  sleep(50);
+  miningBitcoin(50);
   performance.mark("analytics-end");
   performance.measure(
     "Analytics: " + value,
@@ -157,7 +156,7 @@ export function sendAnalyticsPing(value) {
   );
 }
 
-function sleep(ms) {
+function miningBitcoin(ms) {
   let now = Date.now();
   while (Date.now() < now + ms) {
     // noop

@@ -28,9 +28,9 @@ h1 {
 .nameplate {
   font-size: 30px;
   padding: 20px 0;
-  border-bottom: 1px solid lightgrey;
   width: 50%;
   float: left;
+  color: #ffadb4;
 }
 
 .highlight {
