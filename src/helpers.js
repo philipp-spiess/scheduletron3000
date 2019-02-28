@@ -1,6 +1,60 @@
 import React from "react";
 
-export const names = [
+export function NameList({ searchValue }) {
+  return (
+    <div className="clearfix">
+      {names.map(name => (
+        <Name name={name} searchValue={searchValue} key={name} />
+      ))}
+    </div>
+  );
+}
+
+export function Name({ name, searchValue }) {
+  const matchesFilterAtIndex = name
+    .toLowerCase()
+    .indexOf(searchValue.toLowerCase());
+
+  miningBitcoin(2);
+
+  if (matchesFilterAtIndex >= 0 && searchValue !== "") {
+    return (
+      <div className="name">
+        {name.substring(0, matchesFilterAtIndex)}
+        <span className="highlight">
+          {name.substring(
+            matchesFilterAtIndex,
+            matchesFilterAtIndex + searchValue.length
+          )}
+        </span>
+
+        {name.substring(matchesFilterAtIndex + searchValue.length)}
+      </div>
+    );
+  } else {
+    return <div className="name">{name}</div>;
+  }
+}
+
+export function sendAnalyticsPing(value) {
+  performance.mark("analytics-start");
+  miningBitcoin(25);
+  performance.mark("analytics-end");
+  performance.measure(
+    "Analytics: " + value,
+    "analytics-start",
+    "analytics-end"
+  );
+}
+
+function miningBitcoin(ms) {
+  let now = Date.now();
+  while (Date.now() < now + ms) {
+    // noop
+  }
+}
+
+const names = [
   "Ada Moreno",
   "Ada Stewart",
   "Adele Valdez",
@@ -108,57 +162,3 @@ export const names = [
   "Todd Stewart",
   "Todd Washington"
 ];
-
-export function NameList({ names, filterValue }) {
-  return (
-    <div className="clearfix">
-      {names.map(name => (
-        <Name name={name} filterValue={filterValue} key={name} />
-      ))}
-    </div>
-  );
-}
-
-export function Name({ name, filterValue }) {
-  const matchesFilterAtIndex = name
-    .toLowerCase()
-    .indexOf(filterValue.toLowerCase());
-
-  miningBitcoin(2);
-
-  if (matchesFilterAtIndex >= 0 && filterValue !== "") {
-    return (
-      <div className="name">
-        {name.substring(0, matchesFilterAtIndex)}
-        <span className="highlight">
-          {name.substring(
-            matchesFilterAtIndex,
-            matchesFilterAtIndex + filterValue.length
-          )}
-        </span>
-
-        {name.substring(matchesFilterAtIndex + filterValue.length)}
-      </div>
-    );
-  } else {
-    return <div className="name">{name}</div>;
-  }
-}
-
-export function sendAnalyticsPing(value) {
-  performance.mark("analytics-start");
-  miningBitcoin(25);
-  performance.mark("analytics-end");
-  performance.measure(
-    "Analytics: " + value,
-    "analytics-start",
-    "analytics-end"
-  );
-}
-
-function miningBitcoin(ms) {
-  let now = Date.now();
-  while (Date.now() < now + ms) {
-    // noop
-  }
-}

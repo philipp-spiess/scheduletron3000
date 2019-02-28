@@ -1,39 +1,33 @@
-import { NameList, names, sendAnalyticsPing } from "./utils";
+import { NameList, sendAnalyticsPing } from "./helpers";
 import React from "react";
 import ReactDOM from "react-dom";
-
-import {
-  unstable_runWithPriority,
-  unstable_scheduleCallback,
-  unstable_LowPriority
-} from "scheduler";
 
 import "./styles.css";
 
 class App extends React.Component {
   state = {
-    filterValue: ""
+    searchValue: ""
   };
 
   handleChange = value => {
-    this.setState({ filterValue: value });
+    this.setState({ searchValue: value });
   };
 
   render() {
-    const { filterValue } = this.state;
+    const { searchValue } = this.state;
 
     return (
       <div className="App">
         <h1>ScheduleTron 3000</h1>
 
-        <FilterBox onChange={this.handleChange} />
-        <NameList names={names} filterValue={filterValue} />
+        <SearchBox onChange={this.handleChange} />
+        <NameList searchValue={searchValue} />
       </div>
     );
   }
 }
 
-class FilterBox extends React.Component {
+class SearchBox extends React.Component {
   state = {
     inputValue: ""
   };
@@ -42,16 +36,8 @@ class FilterBox extends React.Component {
     const value = event.target.value;
 
     this.setState({ inputValue: value });
-
-    unstable_scheduleCallback(() => {
-      this.props.onChange(value);
-    });
-
-    unstable_runWithPriority(unstable_LowPriority, () => {
-      unstable_scheduleCallback(() => {
-        sendAnalyticsPing(value);
-      });
-    });
+    this.props.onChange(value);
+    sendAnalyticsPing(value);
   };
 
   render() {
@@ -72,10 +58,4 @@ class FilterBox extends React.Component {
 }
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(
-  <React.unstable_ConcurrentMode>
-    <App />
-  </React.unstable_ConcurrentMode>,
-  rootElement
-);
-
+ReactDOM.render(<App />, rootElement);
