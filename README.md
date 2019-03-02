@@ -1,5 +1,5 @@
-# ScheduleTron 300
+# ScheduleTron 3000
 
-Example used for my talk about Scheduling in React presented at React Vienna on Jan 22 2018.
+An example app used to demonstrate the new React features: Concurrent React and the Scheduler.
 
-The slides can be found on [Speaker Deck](https://speakerdeck.com/philippspiess/scheduling-in-react).
+[Read more in this blog post about Scheduling in React](https://philippspiess.com/scheduling-in-react/)
