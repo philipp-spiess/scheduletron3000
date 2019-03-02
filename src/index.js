@@ -2,6 +2,13 @@ import { NameList, sendAnalyticsPing } from "./helpers";
 import React from "react";
 import ReactDOM from "react-dom";
 
+import {
+  unstable_LowPriority,
+  unstable_next,
+  unstable_runWithPriority,
+  unstable_scheduleCallback,
+} from "scheduler";
+
 import "./styles.css";
 
 class App extends React.Component {
@@ -34,10 +41,19 @@ class SearchBox extends React.Component {
 
   handleChange = event => {
     const value = event.target.value;
+    const onChange = this.props.onChange;
 
     this.setState({ inputValue: value });
-    this.props.onChange(value);
-    sendAnalyticsPing(value);
+
+    unstable_next(function() {
+      onChange(value);
+    });
+
+    unstable_runWithPriority(unstable_LowPriority, function () {
+      unstable_scheduleCallback(function () {
+        sendAnalyticsPing(value);
+      })
+    })
   };
 
   render() {
@@ -58,4 +74,9 @@ class SearchBox extends React.Component {
 }
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+ReactDOM.render(
+  <React.unstable_ConcurrentMode>
+    <App />
+  </React.unstable_ConcurrentMode>,
+  rootElement
+);
