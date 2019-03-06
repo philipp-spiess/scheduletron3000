@@ -1,4 +1,4 @@
-import React, { createRef, PureComponent } from "react";
+import React from "react";
 
 const SPEED = 0.01;
 
