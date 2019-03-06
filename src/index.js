@@ -1,15 +1,20 @@
 import { NameList, sendAnalyticsPing } from "./helpers";
 import React from "react";
 import ReactDOM from "react-dom";
+import H1 from "./H1";
 
 import {
   unstable_LowPriority,
   unstable_next,
   unstable_runWithPriority,
-  unstable_scheduleCallback,
+  unstable_scheduleCallback
 } from "scheduler";
 
 import "./styles.css";
+
+// Change the flag below to enable Concurrent React and Scheduler improvements
+// as layed out in https://philippspiess.com/scheduling-in-react
+const CONCURRENT_AND_SCHEDULED = true;
 
 class App extends React.Component {
   state = {
@@ -25,7 +30,7 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <h1>ScheduleTron 3000</h1>
+        <H1>ScheduleTron 3000</H1>
 
         <SearchBox onChange={this.handleChange} />
         <NameList searchValue={searchValue} />
@@ -43,17 +48,23 @@ class SearchBox extends React.Component {
     const value = event.target.value;
     const onChange = this.props.onChange;
 
-    this.setState({ inputValue: value });
+    if (CONCURRENT_AND_SCHEDULED) {
+      this.setState({ inputValue: value });
 
-    unstable_next(function() {
+      unstable_next(function() {
+        onChange(value);
+      });
+
+      unstable_runWithPriority(unstable_LowPriority, function() {
+        unstable_scheduleCallback(function() {
+          sendAnalyticsPing(value);
+        });
+      });
+    } else {
+      this.setState({ inputValue: value });
       onChange(value);
-    });
-
-    unstable_runWithPriority(unstable_LowPriority, function () {
-      unstable_scheduleCallback(function () {
-        sendAnalyticsPing(value);
-      })
-    })
+      sendAnalyticsPing(value);
+    }
   };
 
   render() {
@@ -74,9 +85,13 @@ class SearchBox extends React.Component {
 }
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(
-  <React.unstable_ConcurrentMode>
+const Wrapper = ReactDOM.render(
+  CONCURRENT_AND_SCHEDULED ? (
+    <React.unstable_ConcurrentMode>
+      <App />
+    </React.unstable_ConcurrentMode>
+  ) : (
     <App />
-  </React.unstable_ConcurrentMode>,
+  ),
   rootElement
 );
