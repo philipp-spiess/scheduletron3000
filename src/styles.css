@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  margin-bottom: 40vh;
 }
 
 body {
@@ -14,7 +15,6 @@ body {
   font-size: 30px;
   width: 80%;
   display: block;
-  outline-color: #fcd93b;
   margin: 60px auto;
 }
 
@@ -41,4 +41,34 @@ h1 {
 .clearfix::after {
   clear: both;
   content: "";
+}
+
+.marketing {
+  background: linear-gradient(transparent 0%, black 80%);
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 40vh;
+  text-align: left;
+  padding-left: 100px;
+  padding-right: 100px;
+  padding-bottom: 50px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.marketing > span {
+  font-size: 4rem;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.fps {
+  zoom: 2;
+  position: relative;
+  width: 120px;
+  height: 40px;
 }

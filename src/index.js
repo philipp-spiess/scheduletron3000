@@ -1,7 +1,8 @@
 import { NameList, sendAnalyticsPing } from "./helpers";
 import React from "react";
 import ReactDOM from "react-dom";
-import H1 from "./H1";
+import Header from "./Header";
+import Description from "./Description";
 
 import {
   unstable_LowPriority,
@@ -14,7 +15,7 @@ import "./styles.css";
 
 // Change the flag below to enable Concurrent React and Scheduler improvements
 // as layed out in https://philippspiess.com/scheduling-in-react
-const CONCURRENT_AND_SCHEDULED = true;
+export const CONCURRENT_AND_SCHEDULED = true;
 
 class App extends React.Component {
   state = {
@@ -30,10 +31,10 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <H1>ScheduleTron 3000</H1>
-
+        <Header>ScheduleTron 3000</Header>
         <SearchBox onChange={this.handleChange} />
         <NameList searchValue={searchValue} />
+        <Description />
       </div>
     );
   }

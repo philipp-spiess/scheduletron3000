@@ -2,7 +2,7 @@ import React, { createRef, PureComponent } from "react";
 
 const SPEED = 0.01;
 
-export default class H1 extends React.PureComponent {
+export default class Header extends React.PureComponent {
   state = { offset: 0 };
   t0 = Date.now();
   ref = React.createRef();
