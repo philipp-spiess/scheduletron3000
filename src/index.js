@@ -56,11 +56,7 @@ class SearchBox extends React.Component {
         onChange(value);
       });
 
-      unstable_runWithPriority(unstable_LowPriority, function() {
-        unstable_scheduleCallback(function() {
-          sendAnalyticsPing(value);
-        });
-      });
+      sendDeferredAnalyticsPing(value);
     } else {
       this.setState({ inputValue: value });
       onChange(value);
@@ -83,6 +79,14 @@ class SearchBox extends React.Component {
       </div>
     );
   }
+}
+
+function sendDeferredAnalyticsPing(value) {
+  unstable_runWithPriority(unstable_LowPriority, function() {
+    unstable_scheduleCallback(function() {
+      sendAnalyticsPing(value);
+    });
+  });
 }
 
 const rootElement = document.getElementById("root");
