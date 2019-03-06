@@ -1,7 +1,11 @@
 # ScheduleTron 3000
 
-[![](https://d3r69eeiwn2k86.cloudfront.net/items/3k111K193t1z3v0g1D02/Screen%20Recording%202019-03-02%20at%2001.48%20AM.gif)](https://philippspiess.com/scheduling-in-react/)
+<p align="center">
+  <a href="https://philippspiess.com/scheduling-in-react/">
+    <img alt="ScheduleTron 3000" src="http://cl.ly/6ba38f62fc73/Scheduling%20in%20React.gif" width="720">
+  </a>
+</p>
 
-An example app used to demonstrate the new React features: Concurrent React and the Scheduler.
+An example app used to demonstrate the new React features Concurrent React and the Scheduler.
 
-[Read more in this blog post about Scheduling in React](https://philippspiess.com/scheduling-in-react/)
+[Read more in this blog post about Scheduling in React.](https://philippspiess.com/scheduling-in-react/)
